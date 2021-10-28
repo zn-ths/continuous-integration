@@ -25,11 +25,28 @@ def reverse_string(word: str) -> str:
     return word[::-1]
 
 
+def convert_to_robbers_lang(text: str) -> str:
+    """Returns a modified string converted to robbers language.
+
+    Replaces all consonants with duplicates of the consonant with
+    an 'o' in between.
+
+    Args:
+        text (str): the string to modify.
+    Returns:
+        str: the string converted to robbers language.
+    """
+
+    is_consonant = lambda char: char.lower() not in VOWELS and char.isalpha()
+    return "".join([f"{c}o{c}" if is_consonant(c) else c for c in text])
+
+
 def main():
     print(remove_vowels("zaid"))
     print(remove_vowels("Anna babbah alsO"))
     print(reverse_string("zaid"))
     print(reverse_string("annA bAbbah alsO"))
+    print(convert_to_robbers_lang("zaiD"))
 
 
 if __name__ == "__main__":
