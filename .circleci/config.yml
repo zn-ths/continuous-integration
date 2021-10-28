@@ -1,0 +1,26 @@
+# CircleCI 2.0 Python Configuration file
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.9
+
+    working_directory: ~/project
+
+    steps:
+      # Step 1: checkout rep from GitHub
+      - checkout
+      # Step 2: Create virtual environment and install dependencies
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      # Step 3: Run linter and tests
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            flake8 --exclude=venv* --statistics
+            pytest -v --cov=src.string_ops
